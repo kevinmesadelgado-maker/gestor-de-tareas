@@ -25,8 +25,7 @@ public class PrincipalView extends VerticalLayout {
         H2 header = new H2("This place intentionally left empty");
         header.addClassNames(Margin.Top.XLARGE, Margin.Bottom.MEDIUM);
         add(header);
-        add(new Paragraph("It’s a place where you can grow your own UI 🤗"));
-
+        add(new Paragraph("hola mundo"));
         setSizeFull();
         setJustifyContentMode(JustifyContentMode.CENTER);
         setDefaultHorizontalComponentAlignment(Alignment.CENTER);
