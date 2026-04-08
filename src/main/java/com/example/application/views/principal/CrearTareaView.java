@@ -13,11 +13,13 @@ import com.vaadin.flow.router.HasUrlParameter;
 
 import com.example.application.models.Tarea;
 import com.example.application.services.TareaService;
+import com.vaadin.flow.router.PageTitle;
 
 import java.util.Arrays;
 
-@Route("crear")
-public class CrearTarea extends VerticalLayout implements HasUrlParameter<String> {
+@Route(value= "crear")
+@PageTitle("Crear Tarea")
+public class CrearTareaView extends VerticalLayout implements HasUrlParameter<String> {
 
     private String estado;
 
@@ -26,7 +28,7 @@ public class CrearTarea extends VerticalLayout implements HasUrlParameter<String
         this.estado = parameter;
     }
 
-    public CrearTarea() {
+    public CrearTareaView() {
 
         H2 titulo = new H2("➕ Nueva página");
 

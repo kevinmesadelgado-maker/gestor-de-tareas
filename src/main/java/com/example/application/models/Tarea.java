@@ -32,7 +32,18 @@ public class Tarea {
         return fecha;
     }
 
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
     public void setEstado(String estado) {
         this.estado = estado;
+    }
+
+    public void setFecha(LocalDate fecha) {
+        this.fecha = fecha;
     }
 }

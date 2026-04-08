@@ -9,6 +9,10 @@ import com.vaadin.flow.component.html.*;
 import com.vaadin.flow.component.orderedlayout.*;
 import com.vaadin.flow.component.menubar.MenuBar;
 import com.vaadin.flow.component.contextmenu.MenuItem;
+import com.vaadin.flow.component.dialog.Dialog;
+import com.vaadin.flow.component.textfield.TextField;
+import com.vaadin.flow.component.textfield.TextArea;
+import com.vaadin.flow.component.datepicker.DatePicker;
 
 import com.vaadin.flow.router.Menu;
 import com.vaadin.flow.router.PageTitle;
@@ -59,8 +63,9 @@ public class PrincipalView extends AbstractView {
 
         header.add(tituloCol);
 
-        // ❌ NO mostrar botón en Finalizado
-        if (!estado.equals("Finalizado")) {
+        // esto es para que no se pueda agregar tareas a la columna de Finalizado       
+
+          if (!estado.equals("Finalizado")) {
 
             Button agregar = new Button("+ Agregar tarea");
 
@@ -119,18 +124,62 @@ public class PrincipalView extends AbstractView {
                 .set("border-radius", "8px")
                 .set("box-shadow", "2px 2px 5px rgba(0,0,0,0.1)");
 
-        // 🔹 HEADER (nombre + menú)
+        // su header con nombre y su menu 
         HorizontalLayout header = new HorizontalLayout();
         header.setWidthFull();
         header.setJustifyContentMode(JustifyContentMode.BETWEEN);
 
         H4 nombre = new H4(t.getNombre());
 
-        // 🔥 MENÚ DE OPCIONES (⋮)
         MenuBar menu = new MenuBar();
         MenuItem opciones = menu.addItem("⋮");
 
-        // Mostrar solo opciones diferentes al estado actual
+       
+        opciones.getSubMenu().addItem("Editar", e -> {
+
+            Dialog dialog = new Dialog();
+
+            TextField nombreField = new TextField("Nombre");
+            nombreField.setValue(t.getNombre());
+
+            TextArea descripcionField = new TextArea("Descripción");
+            descripcionField.setValue(t.getDescripcion());
+
+            DatePicker fechaField = new DatePicker("Fecha");
+            fechaField.setValue(t.getFecha());
+
+            Button guardar = new Button("Guardar", ev -> {
+                t.setNombre(nombreField.getValue());
+                t.setDescripcion(descripcionField.getValue());
+                t.setFecha(fechaField.getValue());
+
+                dialog.close();
+                actualizarVista();
+            });
+
+            dialog.add(nombreField, descripcionField, fechaField, guardar);
+            dialog.open();
+        });
+
+        
+        opciones.getSubMenu().addItem("Eliminar", e -> {
+
+            Dialog confirm = new Dialog();
+
+            Paragraph texto = new Paragraph("¿Seguro que quieres eliminar esta tarea?");
+
+            Button si = new Button("Sí", ev -> {
+                TareaService.tareas.remove(t);
+                confirm.close();
+                actualizarVista();
+            });
+
+            Button no = new Button("Cancelar", ev -> confirm.close());
+
+            confirm.add(texto, new HorizontalLayout(si, no));
+            confirm.open();
+        });
+
         if (!t.getEstado().equals("Pendiente")) {
             opciones.getSubMenu().addItem("Pendiente", e -> {
                 t.setEstado("Pendiente");
@@ -154,7 +203,7 @@ public class PrincipalView extends AbstractView {
 
         header.add(nombre, menu);
 
-        // 🔹 DESCRIPCIÓN
+        
         Span descripcion = new Span(t.getDescripcion());
         descripcion.getStyle().set("font-size", "12px");
 
