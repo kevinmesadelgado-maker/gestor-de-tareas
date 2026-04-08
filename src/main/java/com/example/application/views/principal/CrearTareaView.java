@@ -14,6 +14,10 @@ import com.vaadin.flow.router.HasUrlParameter;
 import com.example.application.models.Tarea;
 import com.example.application.services.TareaService;
 import com.vaadin.flow.router.PageTitle;
+import com.vaadin.flow.component.icon.Icon;
+import com.vaadin.flow.component.icon.VaadinIcon;
+import com.vaadin.flow.component.html.Span;
+
 
 import java.util.Arrays;
 
@@ -40,14 +44,23 @@ public class CrearTareaView extends VerticalLayout implements HasUrlParameter<St
 
     public CrearTareaView() {
 
-        H2 titulo = new H2("➕ Nueva página");
+       Icon icono = VaadinIcon.CLIPBOARD_TEXT.create();
+
+H2 titulo = new H2();
+titulo.add(icono, new Span(" Crear Tarea"));
 
         TextField nombre = new TextField("Nombre");
         TextArea descripcion = new TextArea("Descripción");
 
-        DatePicker fecha = new DatePicker("Fecha");
+       DatePicker fecha = new DatePicker();
+fecha.setLabel("Fecha");
 
-        // 🔥 CONFIGURAR ESPAÑOL
+Icon calendarIcon = VaadinIcon.CALENDAR.create();
+calendarIcon.getStyle().set("color", "#3498db");
+
+fecha.setPrefixComponent(calendarIcon);
+
+        //  CONFIGURAR ESPAÑOL
         DatePickerI18n i18n = new DatePickerI18n();
 
         i18n.setMonthNames(Arrays.asList(
@@ -85,6 +98,18 @@ public class CrearTareaView extends VerticalLayout implements HasUrlParameter<St
             getUI().ifPresent(ui -> ui.navigate(""));
         });
 
-        add(titulo, nombre, descripcion, fecha, guardar);
+        VerticalLayout form = new VerticalLayout(
+        titulo, nombre, descripcion, fecha, guardar
+);
+
+form.addClassName("form-container");
+form.setSpacing(true);
+form.setPadding(true);
+// Centrar en pantalla
+setSizeFull();
+setAlignItems(Alignment.CENTER);
+setJustifyContentMode(JustifyContentMode.CENTER);
+
+add(form);
     }
 }

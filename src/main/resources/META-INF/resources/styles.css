@@ -1,0 +1,100 @@
+body {
+    background: #f4f6f9;
+    font-family: Arial, sans-serif;
+}
+
+/* CONTENEDOR DEL FORMULARIO */
+.form-container {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0px 4px 15px rgba(0,0,0,0.1);
+    width: 400px;
+}
+
+/* TÍTULO */
+.form-container h2 {
+    color: #2c3e50;
+    text-align: center;
+}
+
+/* INPUTS SOLO DENTRO DEL FORM */
+.form-container vaadin-text-field,
+.form-container vaadin-text-area,
+.form-container vaadin-date-picker {
+    width: 100%;
+}
+
+/* BOTÓN */
+.form-container vaadin-button {
+    background-color: #3498db;
+    color: white;
+    border-radius: 8px;
+    width: 100%;
+}
+
+.form-container vaadin-button:hover {
+    background-color: #2980b9;
+}
+
+/* CALENDARIO MÁS MODERNO */
+
+/* Campo del datepicker */
+vaadin-date-picker {
+    border-radius: 8px;
+}
+
+/* Botón del calendario (icono) */
+vaadin-date-picker::part(toggle-button) {
+    color: #3498db;
+    transition: 0.2s;
+}
+
+vaadin-date-picker::part(toggle-button):hover {
+    color: #1d6fa5;
+}
+
+/* Popup del calendario */
+vaadin-date-picker-overlay::part(content) {
+    border-radius: 12px;
+    box-shadow: 0px 6px 20px rgba(0,0,0,0.15);
+}
+
+/* Botones dentro del calendario */
+vaadin-date-picker-overlay vaadin-button {
+    border-radius: 8px;
+    font-weight: 500;
+}
+
+vaadin-date-picker {  
+    font-size: 14px;  
+}
+
+/* BOTONES DE CAMBIO DE MES (← →) */
+vaadin-date-picker-overlay::part(previous-button),
+vaadin-date-picker-overlay::part(next-button) {
+    color: #3498db;
+    background-color: #eef5fb;
+    border-radius: 50%;
+    padding: 6px;
+    transition: all 0.2s ease;
+    box-shadow: 0px 2px 6px rgba(0,0,0,0.1);
+}
+
+/* HOVER */
+vaadin-date-picker-overlay::part(previous-button):hover,
+vaadin-date-picker-overlay::part(next-button):hover {
+    background-color: #3498db;
+    color: white;
+}
+
+/* CLICK */
+vaadin-date-picker-overlay::part(previous-button):active,
+vaadin-date-picker-overlay::part(next-button):active {
+    transform: scale(0.9);
+}
+
+vaadin-button:hover {
+    transform: scale(1.05);
+    transition: 0.2s;
+}

@@ -17,6 +17,9 @@ import java.time.LocalDate;
 import java.time.YearMonth;
 import java.time.format.TextStyle;
 import java.util.Locale;
+import com.vaadin.flow.component.icon.Icon;
+import com.vaadin.flow.component.icon.VaadinIcon;
+
 
 @PageTitle("Calendario")
 @Route(value = "calendario", layout = MainLayout.class)
@@ -39,8 +42,9 @@ public class CalendarView extends VerticalLayout {
         header.setJustifyContentMode(JustifyContentMode.BETWEEN);
         header.setAlignItems(Alignment.CENTER);
 
-        Button anterior = new Button("⬅");
-        Button siguiente = new Button("➡");
+        Button anterior = new Button(new Icon(VaadinIcon.ANGLE_LEFT));
+        Button siguiente = new Button(new Icon(VaadinIcon.ANGLE_RIGHT));
+
 
         String nombreMes = mesActual.getMonth()
                 .getDisplayName(TextStyle.FULL, new Locale("es"));
@@ -93,7 +97,7 @@ public class CalendarView extends VerticalLayout {
 
         int contador = 1;
 
-        // 🔥 FILAS (semanas)
+        //  FILAS (semanas)
         for (int fila = 0; fila < 6; fila++) {
 
             HorizontalLayout semana = new HorizontalLayout();
@@ -130,7 +134,7 @@ public class CalendarView extends VerticalLayout {
 
                 celda.add(numero);
 
-                // 🔥 TAREAS EN ESE DÍA
+                //  TAREAS EN ESE DÍA
                 for (Tarea t : TareaService.tareas) {
 
                     if (fecha.equals(t.getFecha())) {
@@ -142,7 +146,7 @@ public class CalendarView extends VerticalLayout {
                                 .set("padding", "2px")
                                 .set("border-radius", "4px");
 
-                        // 🎨 color por estado
+                        //  color por estado
                         switch (t.getEstado()) {
                             case "Pendiente":
                                 tarea.getStyle().set("background", "#fff3cd");
@@ -159,7 +163,7 @@ public class CalendarView extends VerticalLayout {
                     }
                 }
 
-                // 🖱 CLICK EN DÍA
+                // CLICK EN DÍA
                 celda.addClickListener(e -> {
                     System.out.println("Click en: " + fecha);
                 });
