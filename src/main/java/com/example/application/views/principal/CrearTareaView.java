@@ -23,6 +23,16 @@ public class CrearTareaView extends VerticalLayout implements HasUrlParameter<St
 
     private String estado;
 
+    public static void crearTarea(String nombre ) {
+        TareaService.tareas.add(new Tarea(nombre, "", "pendiente", null));
+    }
+
+    public static void crearTarea(String nombre, String descripcion) {
+        
+        TareaService.tareas.add(new Tarea(nombre, descripcion, "pendiente", null));
+        
+    }
+
     @Override
     public void setParameter(BeforeEvent event, String parameter) {
         this.estado = parameter;

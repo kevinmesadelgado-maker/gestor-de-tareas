@@ -2,12 +2,19 @@ package com.example.application.models;
 
 import java.time.LocalDate;
 
-public class Tarea {
+public class Tarea implements AccionesTarea {
 
     private String nombre;
     private String descripcion;
     private String estado;
     private LocalDate fecha;
+
+    public Tarea(String nombre) {
+        this.nombre = nombre;
+        this.descripcion = "";
+        this.estado = "pendiente";
+        this.fecha = null;
+    }
 
     public Tarea(String nombre, String descripcion, String estado, LocalDate fecha) {
         this.nombre = nombre;
@@ -45,5 +52,13 @@ public class Tarea {
 
     public void setFecha(LocalDate fecha) {
         this.fecha = fecha;
+    }
+
+
+
+    // MÉTODO DE LA INTERFAZ
+    @Override
+    public void completar() {
+        this.estado = "finalizado";
     }
 }
